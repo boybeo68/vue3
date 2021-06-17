@@ -5,6 +5,7 @@
         <h3 class="mrbot10">{{ fullNameUser }}</h3>
         <div class="is mrbot10" v-if="user.isAdmin">
           <span>Admin</span>
+          <span>{{ userId }}</span>
         </div>
         <div class="">
           <span>Follwers</span> <span>{{ follower }}</span>
@@ -51,7 +52,8 @@
   </div>
 </template>
 <script>
-import CommenItem from "./CommenItem.vue";
+import CommenItem from "../components/CommenItem.vue";
+import {users} from '../assets/users';
 const shortid = require("shortid");
 export default {
   name: "Profile",
@@ -66,24 +68,7 @@ export default {
         { id: 1, name: "draf" },
         { id: 2, name: "open" },
       ],
-      user: {
-        id: 1,
-        userName: "boybeo68",
-        firstName: "Nguyen Thac",
-        lastName: "Tùng",
-        isAdmin: true,
-        listComent: [
-          {
-            id: 1,
-            comment: "Pariatur fugiat aute aliquip nostrud minim.",
-          },
-          {
-            id: 2,
-            comment:
-              "Deserunt quis fugiat laboris amet ad eu et ea eiusmod sint.",
-          },
-        ],
-      },
+      user: users[this.$route.params.userid - 1] || users[0]
     };
   },
   computed: {
@@ -93,6 +78,9 @@ export default {
     coutNewTwoot() {
       return this.newTwootContent.length
     },
+    userId(){
+      return this.$route.params.userid
+    }
   },
   methods: {
     followUser() {

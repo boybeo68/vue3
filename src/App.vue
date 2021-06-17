@@ -1,29 +1,44 @@
 <template>
   <div id="app">
-    <profile />
+    <nav>
+      <router-link to="/">
+        <div class="navigation__logo">
+          HOME
+        </div>
+      </router-link>
+      <!-- <div class="navigation__user" v-if="user">
+        {{ user.username }}
+      </div> -->
+    </nav>
+    <router-view/>
   </div>
 </template>
-<script>
-import Profile from "./components/Profile.vue";
-export default {
-  name: "App",
-  components: { Profile },
-};
-</script>
 
-<style>
-/* * {
-  margin: 0;
-  padding: 0;
-} */
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
   min-height: 100vh;
-  background-color: #f3f5fa;
+  background-color: #F3F5FA;
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5%;
+    background-color: deeppink;
+    color: white;
+
+    .navigation__logo {
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    .navigation__user {
+      font-weight: bold;
+    }
+  }
 }
 </style>
