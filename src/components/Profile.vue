@@ -12,14 +12,15 @@
         <div class="newTw">
           <form class="newTw" @submit.prevent="createNewTwoot">
             <span class="mrbot10"
-              >New twoot ({{ newTwootContent.length }}/180)</span
+              :class="{ changecount: coutNewTwoot > 100 }"
+              >New twoot ({{ coutNewTwoot }}/100)</span
             >
             <textarea
               class="mrbot10"
               id="w3review"
               v-model="newTwootContent"
               rows="4"
-              :class="{ changecount: newTwootContent.length > 180 }"
+              
             />
             <div class="sec mrbot10">
               <label for="cars">Type</label>
@@ -33,7 +34,7 @@
                 </option>
               </select>
             </div>
-            <button class="mrbot10">new</button>
+            <button :disabled=" coutNewTwoot > 100" class="mrbot10">new</button>
           </form>
         </div>
       </div>
@@ -58,6 +59,7 @@ export default {
   data() {
     return {
       follower: 0,
+      isButtonDisabled:false,
       selectTwootType: "open",
       newTwootContent: "",
       twootType: [
@@ -87,6 +89,9 @@ export default {
   computed: {
     fullNameUser() {
       return `${this.user.firstName} ${this.user.lastName}`;
+    },
+    coutNewTwoot() {
+      return this.newTwootContent.length
     },
   },
   methods: {
@@ -124,7 +129,9 @@ export default {
 .mrbot10 {
   margin-bottom: 10px;
 }
-
+.changecount {
+  color: red
+}
 .user-profile {
   width: 100%;
   display: flex;
@@ -141,9 +148,7 @@ export default {
       .newTw {
         display: flex;
         flex-direction: column;
-        .changecount {
-          border: 1px solid red;
-        }
+
       }
     }
   }

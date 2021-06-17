@@ -2,12 +2,28 @@
   <div class="comment" @click="favouriteClick(twood.id)">
     <div class="comment-user">@{{ username }}</div>
     <div class="comment-content">{{ twood.comment }}</div>
+    <!-- <div class="comment-content">{{ testString }}</div> -->
     <!-- <a href="">link new</a> -->
   </div>
 </template>
 <script>
+import { reactive, computed } from "vue";
 export default {
   name: "CommentItem",
+  setup(prop, ctx) {
+    const state = reactive({
+      test: "123123",
+    });
+    const testString = computed(()=> state.test + 'noi string')
+    function favouriteClick (id){
+      ctx.emit("favourite", id);
+    }
+    return {
+      state,
+      favouriteClick,
+      testString
+    };
+  },
   props: {
     username: {
       type: String,
@@ -18,11 +34,11 @@ export default {
       required: true,
     },
   },
-  methods: {
-    favouriteClick(id) {
-      this.$emit("favourite", id);
-    },
-  },
+  // methods: {
+  //   favouriteClick(id) {
+  //     this.$emit("favourite", id);
+  //   },
+  // },
 };
 </script>
 <style lang="scss" >
