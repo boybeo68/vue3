@@ -12,8 +12,7 @@
         </div>
         <div class="newTw">
           <form class="newTw" @submit.prevent="createNewTwoot">
-            <span class="mrbot10"
-              :class="{ changecount: coutNewTwoot > 100 }"
+            <span class="mrbot10" :class="{ changecount: coutNewTwoot > 100 }"
               >New twoot ({{ coutNewTwoot }}/100)</span
             >
             <textarea
@@ -21,7 +20,6 @@
               id="w3review"
               v-model="newTwootContent"
               rows="4"
-              
             />
             <div class="sec mrbot10">
               <label for="cars">Type</label>
@@ -35,7 +33,7 @@
                 </option>
               </select>
             </div>
-            <button :disabled=" coutNewTwoot > 100" class="mrbot10">new</button>
+            <button :disabled="coutNewTwoot > 100" class="mrbot10">new</button>
           </form>
         </div>
       </div>
@@ -53,7 +51,8 @@
 </template>
 <script>
 import CommenItem from "../components/CommenItem.vue";
-import {users} from '../assets/users';
+import { users } from "../assets/users";
+import { mapGetters } from "vuex";
 const shortid = require("shortid");
 export default {
   name: "Profile",
@@ -61,14 +60,14 @@ export default {
   data() {
     return {
       follower: 0,
-      isButtonDisabled:false,
+      isButtonDisabled: false,
       selectTwootType: "open",
       newTwootContent: "",
       twootType: [
         { id: 1, name: "draf" },
         { id: 2, name: "open" },
       ],
-      user: users[this.$route.params.userid - 1] || users[0]
+      user: users[this.$route.params.userid - 1] || users[0],
     };
   },
   computed: {
@@ -76,11 +75,12 @@ export default {
       return `${this.user.firstName} ${this.user.lastName}`;
     },
     coutNewTwoot() {
-      return this.newTwootContent.length
+      return this.newTwootContent.length;
     },
-    userId(){
-      return this.$route.params.userid
-    }
+    userId() {
+      return this.$route.params.userid;
+    },
+    ...mapGetters("User", ["allUser"]),
   },
   methods: {
     followUser() {
@@ -110,6 +110,9 @@ export default {
     follower(newData, oldData) {
       console.log(newData, oldData);
     },
+    allUser(newData, oldData) {
+      console.log("watch", oldData, newData);
+    },
   },
 };
 </script>
@@ -118,7 +121,7 @@ export default {
   margin-bottom: 10px;
 }
 .changecount {
-  color: red
+  color: red;
 }
 .user-profile {
   width: 100%;
@@ -136,7 +139,6 @@ export default {
       .newTw {
         display: flex;
         flex-direction: column;
-
       }
     }
   }
